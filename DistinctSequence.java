@@ -1,6 +1,6 @@
 /*115.
-algorithm: DP, substring of T start with j , substring of S start with i, if T(j)== S(i) , distinct subsequence number will be that of T(start with j) in S(start with i+1) plus
-T(start with j+1) in S(start with i+1), otherwise, it only equals T(start with j) in S(start with i+1)*
+algorithm: DP, substring of T start with j , substring of S start with i, if T.charAt(j)== S.charAt(i) , distinct subsequence number will be that of T(start with j) in S(start with i+1) plus
+T(start with j+1) in S(start with i+1), otherwise, it only equals T(start with j) in S(start with i+1)
 
 look at the 2D array you can understand, fill in the table from right lower corner , 
 each cell value is calculated based on the right cell and righ low cell, left upper corner[0][0] is the result
