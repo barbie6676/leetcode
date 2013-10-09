@@ -1,5 +1,7 @@
-finished: 82-133
+finished: 81-133
 
+33	Search in Rotated Sorted Array.
+81	Search in Rotated Sorted ArrayII
 82	Remove Duplicates from Sorted List II	
 83	Remove Duplicates from Sorted List	
 84	Largest Rectangle in Histogram	
