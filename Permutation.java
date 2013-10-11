@@ -13,6 +13,10 @@ algorithm: I. you can directly use the nextPermutation methods
 algorithm: can directly use nextPermutation.
            or can use recursion, each time pick up one elem, permute the rest, then insert the elem at each postion.
            
+47. permutation II (unique permutations)
+algorithm: use the nextPermutation,
+           sort array first, add control, when the current perm is already non-ascending, stop and return result.
+           
 */
 
  public void nextPermutation(int[] num) {
@@ -110,5 +114,47 @@ algorithm: can directly use nextPermutation.
         
             ret.add(perm);
         }
+        return ret;
+    }
+    
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        
+        int n = num.length;
+        if (n == 0) {
+            ret.add(new ArrayList<Integer>());
+            return ret;
+        }
+        if (n ==1) {
+            ArrayList<Integer> perm = new ArrayList<Integer>();
+            perm.add(num[0]);
+            ret.add(perm);
+            return ret;
+        }
+        
+        Arrays.sort(num);
+        int lastsmall = -1;
+        ArrayList<Integer> elem = new ArrayList<Integer>();
+        for (int i = 0; i < n ; i++) {
+            elem.add(num[i]);
+            if (i < n-1&&num[i]<num[i+1]) lastsmall = i;
+        }
+        ret.add(elem);
+        
+        if (lastsmall == -1) return ret;
+        
+        while (true) { // may not be a very good flow control, but it works
+            nextPermutation(num);
+            ArrayList<Integer> perm = new ArrayList<Integer>();
+            lastsmall = -1;
+            for (int i = 0; i < n; i++){
+                perm.add(num[i]);
+                if (i < n-1 && num[i]<num[i+1]) lastsmall = i;
+            }
+            ret.add(perm);
+            if (lastsmall == -1) break;
+        } 
+        
         return ret;
     }
