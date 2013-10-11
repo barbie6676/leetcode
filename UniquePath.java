@@ -1,9 +1,11 @@
 /*62. unique path
 algorithm: recursion: time limit exceed
 or C(m-1,m+n-2), figure out O(m+n) way to calculate the value
+or DP
 
 63. unique paths II
 algorithm: recursion
+or DP
 
 */
 
@@ -33,6 +35,27 @@ public int uniquePaths(int m, int n) {
         uniquePaths(m,n,x,y+1,paths);
     }
     
+    public int uniquePathsDP(int m, int n) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if (m==0 || n == 0) return 0;
+        if (m ==1 || n ==1) return 1;
+        
+        int[][] grid = new int[m][n];
+        
+        for (int i = 0; i < m; i++)
+            grid[i][0] = 1;
+            
+        for (int j =1 ; j < n ; j++)
+            grid[0][j] = 1;
+            
+        for (int i = 1; i < m ; i ++) {
+            for (int j = 1; j < n ; j++) {
+                grid[i][j] = grid[i-1][j] + grid[i][j-1];
+            }
+        }
+        
+        return grid[m-1][n-1];
+    }
     
     //recursion
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
@@ -51,6 +74,7 @@ public int uniquePaths(int m, int n) {
         
         return paths[0];
     }
+    
     
     public void uniquePathsAux(int[][] grid , int x, int y, int[] paths) {
         if (x == grid.length-1 && y == grid[0].length-1) {
