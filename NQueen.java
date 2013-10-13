@@ -105,3 +105,88 @@ public ArrayList<String[]> solveNQueens(int n) {
         
         return ret;
     }
+    
+    
+    
+    public int totalNQueens(int n) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        //ArrayList<String[]> ret = new ArrayList<String[]>();
+        
+        int ret = 0;
+        if (n <=1) return n;
+   
+        
+        int[] currPos = new int[n];
+        
+        int k = 0;
+        boolean forward = true;
+        while (k>=0) {
+            if (forward) {
+               
+                int i = 0;
+                boolean can = false;
+                int end = n;
+                if (k == 0)  end = n%2==0?n/2:(n/2+1);
+                for (; i < end ; i++) {
+                    can = true;
+                    for (int j = 0; j < k&&can;j++){
+                        if (i==currPos[j]||k-j == Math.abs(i-currPos[j])) can = false;
+                    }
+                    if (can) {
+                      
+                        currPos[k] = i;
+                        break;
+                    }
+                }
+                
+                if (can) { //find a position for current kth queen
+                    k++;
+                    if (k==n) {
+                
+                        if (currPos[0]==n/2) ret++;
+                        else ret +=2;
+                        forward = !forward;
+                        k--;
+                    }
+                } else {
+                    forward = !forward;
+                    k--;
+                }
+                
+            } else {//backward;try from the currentPos of this queen.
+               
+                int i = currPos[k];
+                boolean can = false;
+                 int end = n;
+                if (k == 0)  end = n%2==0?n/2:(n/2+1);
+                for (i = i+1; i < end ; i++) {
+                    can = true;
+                    for (int j = 0; j < k&&can;j++){
+                        if (i==currPos[j]||k-j == Math.abs(i-currPos[j])) can = false;
+                    }
+                    if (can) {
+                       
+                        currPos[k] = i;
+                        break;
+                    }
+                }
+                
+                if (can) { //find a position for current kth queen
+                    k++;
+                    forward = !forward;
+                    if (k==n) {
+                       
+                         if (currPos[0]==n/2) ret++;
+                        else ret +=2;
+                        forward = !forward;
+                        k--;
+                    }
+                } else {
+                    k--;
+                }
+                
+            }
+        }
+        
+        return ret;
+    }
