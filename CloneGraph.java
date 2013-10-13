@@ -47,7 +47,9 @@ public class Solution{
 	                map.put(neighbor,p);
 	                q.add(neighbor);
 	            } else {     // a copy already exists
-	            	map.get(curr).neighbors.add(neighbor);
+	            	 UndirectedGraphNode copy = map.get(neighbor);
+	                
+	            	map.get(curr).neighbors.add(copy);
 	            }
 	        }
 	    }
