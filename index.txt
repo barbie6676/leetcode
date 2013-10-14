@@ -1,4 +1,14 @@
-finished: 81-133
+unfinished:
+
+regular expression match
+wildcard match
+word break II (actually, even pass all the cases in word break I, it has obvious error, has another solusion using dfs, but exceed time limit)
+word ladder II (dfs, exceed time limit)
+median of two sorted arrays (should be done soon)
+
+============================================================================
+
+finished: all but five:
 
 26	Remove Duplicates from Sorted Array 
 29  Divide two Integers ?????????
