@@ -28,26 +28,19 @@ algorithm: DP: two functions: f(a,b) true if the first a of s1 and first b of s2
 	 //boolean[][] g2 = new boolean[n1+1][n2+1];
 	 
 	 f[0][0] = true;
-	 for (int k = 0; k<=(n2>n1?n1:n2);k++){
-		 for (int j = 0; j< n2;j++){ // sweep rows, to the end of s2
-			 
-			  g[k][j+1][1] = s2.charAt(j)==s3.charAt(j+k)?f[k][j]:false;
-			  if (k==0)g[k][j+1][0] = false;
-			  else g[k][j+1][0] = s1.charAt(k-1)==s3.charAt(j+k)?f[k-1][j+1]:false;
-			  
-			  f[k][j+1] = g[k][j+1][0]||g[k][j+1][1];
-			 
-		 }
-		
-		 for (int i = 0 ; i<n1;i++){
-			 g[i+1][k][0] = s1.charAt(i)==s3.charAt(i+k)?f[i][k]:false;
-			 if (k==0)g[i+1][k][1] = false; 
-			 else g[i+1][k][1] = s2.charAt(k-1)==s3.charAt(i+k)?f[i+1][k-1]:false;; 
-			 
-			 f[i+1][k] = g[i+1][k][0]||g[i+1][k][1];
-		 }
-		 
-		
+	 for (int i = 1; i <= n1; i++) {
+	     f[i][0] = s1.charAt(i-1)==s3.charAt(i-1)?f[i-1][0]:false;
+	 }
+	 for (int j = 1; j <= n2; j++) {
+	     f[0][j] = s2.charAt(j-1)==s3.charAt(j-1)?f[0][j-1]:false;
+	 }
+	 
+	 for (int i = 1; i <= n1; i++) {
+	     for (int j = 1; j <= n2; j++){
+	         g[i][j][0] = s1.charAt(i-1)==s3.charAt(i+j-1)?f[i-1][j]:false;
+	         g[i][j][1] = s2.charAt(j-1)==s3.charAt(i+j-1)?f[i][j-1]:false;
+	         f[i][j] = g[i][j][0]||g[i][j][1];
+	     }
 	 }
 	
 	 
