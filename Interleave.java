@@ -9,9 +9,10 @@ algorithm: DP: two functions: f(a,b) true if the first a of s1 and first b of s2
 							  
 							  it's so cofusing.
 							  
-							  the order to traversal the matrix, if from left upper corner, to right lower corner.
-							  or top row, leftmost col first.
-							  then row by row.
+							  the order to traversal the matrix, 
+							  first row , first col
+							  then sweep each row from left to right.
+							  return right lower corner
 */
 
  public boolean isInterleave(String s1, String s2, String s3) {
