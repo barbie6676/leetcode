@@ -107,3 +107,42 @@ public boolean isMatch(String s, String p) {
 	}
 	return false;
 }
+
+
+// a DP approach, very clean and nice copy from 
+// http://www.mitbbs.com/article_t/JobHunting/32528059.html
+
+public boolean isMatch(String s, String p) {
+
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s == null || p == null) return false;
+        int m = s.length(), n = p.length();
+        boolean[][] match = new boolean[m + 1][n + 1];
+        match[0][0] = true;
+        for(int i = 1; i <= m; i++){
+            match[i][0] = false;
+        }
+        for(int j = 1; j <= n; j++){
+            if(p.charAt(j - 1) == '*'){
+                match[0][j] = match[0][j - 2];
+            }else{
+                match[0][j] = false;
+            }
+        }
+        
+        for(int i = 1; i <= m; i++){
+            for(int j = 1; j <= n; j++){
+                if(p.charAt(j - 1) == '*'){
+                    match[i][j] |= match[i][j - 2];
+                    if(s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2)== '.'){
+                        match[i][j] |= match[i - 1][j];
+                    }
+                }else{
+                    match[i][j] = ((s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') && match[i - 1][j - 1]);
+                }
+            }
+        }
+        
+        return match[m][n];
+    }
