@@ -146,3 +146,53 @@ public boolean isMatch(String s, String p) {
         
         return match[m][n];
     }
+
+
+ public boolean isMatchWildDP(String s, String p) {
+	        // Note: The Solution object is instantiated only once and is reused by each test case.
+	        //DP.
+	        
+	int m = s.length();
+	int n = p.length();
+	boolean[] pstart = new boolean[n+1];
+	boolean[][] match = new boolean[2][m];
+	
+	pstart[0] = true;
+	for (int i = 0; i<m; i++)
+	    match[0][i] = false;
+	    
+	for (int j = 1; j <=n ;j++)
+	    pstart[j] = p.charAt(j-1)=='*';
+	
+	//Methods me = new Methods();
+	int up = 1;
+	for (int j = up; j <=n ; j++) {
+	    for (int i = 0; i < m; i++) {
+	        char c = p.charAt(j-1);
+	        if (c == '*') {
+	            if (i==0){
+	            	if (pstart[j-1]){
+	            		match[1][i] = true;
+	            		int k = i;
+	                    	while (++k<m) match[1][k]|= match[1][k-1];
+	                    	up = j+1;
+	            	} else match[1][i] |= pstart[j];
+	            } else {
+	            	if (match[0][i-1]){
+	            		match[1][i] = true;
+	            		int k = i;
+	                    	while (++k<m) match[1][k]|= match[1][k-1];
+	                    	up = j+1;
+	            	} else match[1][i] |= match[1][i-1];
+	            }	                    		                    
+	        } else {
+	        	boolean t = (c == s.charAt(i)||c =='?');
+	            if (i == 0) match[1][i] = t&&pstart[j-1];
+	            else match[1][i] = t&&match[0][i-1];
+	        }
+	    }
+	    match[0] = match[1].clone();
+	}
+	//me.printBoolMatrix(match);
+	return match[1][m-1];
+}
