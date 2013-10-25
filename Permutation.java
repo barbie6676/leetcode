@@ -19,6 +19,52 @@ algorithm: use the nextPermutation,
            
 */
 
+ // first of all, still recursion is most straight forward
+ // you pull out the elem at each position, 
+ // permutate the rest of the elems , for each one, append the removed elem to the head,
+ 
+ public static ArrayList<ArrayList<Integer>> permute(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        int len = num.length;
+        if (len == 0) {
+        	ret.add(new ArrayList<Integer>());
+        	return ret;
+        }
+          
+        for (int i = 0 ; i < len ; i ++) {
+            
+            int curr = num[i];
+            
+            int[] rest = new int[len -1];
+            int j = 0;
+            int k = 0;
+            while (k <len ) {
+            	if(k != i) {
+	                	rest[j] = num[k ]; 
+	                	j++;
+	                }
+	             k++;   
+                
+            }
+            
+            ArrayList<ArrayList<Integer>> restList = permute(rest);
+            
+            for (int m = 0; m < restList.size(); m++) {
+               
+                    ArrayList<Integer> elem = new ArrayList<Integer>();
+                    elem.add(curr);
+                    elem.addAll(restList.get(m));
+                    
+                    ret.add(elem);
+                    
+            }
+        }       
+        return ret;
+        
+    }
+
  public void nextPermutation(int[] num) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
         int n = num.length;
