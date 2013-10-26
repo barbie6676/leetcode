@@ -146,7 +146,42 @@ public boolean isMatch(String s, String p) {
         
         return match[m][n];
     }
+    
+    // arecursion approach
 
+public static boolean easyREmatch(String p, String s) {
+		 int pn = p.length();
+		 int sn = s.length();
+		 
+		 int si = 0; 
+		 int pi = 0;
+		 while (si <  sn&&pi<pn) {
+			 char c = p.charAt(pi);
+			 if(pi+1<pn&&p.charAt(pi+1)=='*'){
+				 if (c==s.charAt(si)){
+					 if (easyREmatch(p.substring(pi+2),s.substring(si+1))) return true;
+					 si++;
+				 }
+				 pi += 2;
+				 
+			 } else {
+				 if (c!='.'||s.charAt(si)!=c) return false;
+				 si++;
+				 pi++;
+			 }
+		 }
+		 
+		 if (si == sn) {
+			 if (pi+1<pn){
+				if (p.charAt(pi+1)!='*') return false;
+				pi += 2;
+			 }
+			 if (pi +1 == pn) return false;
+			 return true;
+		 }
+		 
+		 return true;
+	 }
 
  public boolean isMatchWildDP(String s, String p) {
 	        // Note: The Solution object is instantiated only once and is reused by each test case.
